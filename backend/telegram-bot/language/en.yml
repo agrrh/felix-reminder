@@ -1,0 +1,15 @@
+---
+
+reply_help: |-
+  Hello, I'm multi-purpose reminder cat bot.
+
+  - /help or /start - this message
+  - /manage - send manage link
+
+reply_default: |-
+  Sorry, I don't understand you.
+
+  Use /help to make me send you list of possible commands.
+
+reply_not_found: |-
+  Sorry, your user is not found, try begin with /start.
