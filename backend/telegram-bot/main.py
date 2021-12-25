@@ -1,7 +1,7 @@
 import os
+import redis
 import telebot
 import uuid
-import redis
 
 from lib.language import Language
 
