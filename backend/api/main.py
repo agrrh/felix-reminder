@@ -4,6 +4,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+app_version = os.environ.get("APP_API_VERSION", "local")
+
 redis_addr = os.environ.get("APP_REDIS_ADDR", "redis://127.0.0.1:6379/0")
 
 redis_client = redis.Redis.from_url(redis_addr, decode_responses=True)
@@ -26,7 +28,7 @@ app.add_middleware(
 
 @app.get("/status")
 def read_root():
-    return {"status": "ok"}
+    return {"version": app_version}
 
 
 @app.get("/users/telegram/{user_id}")
