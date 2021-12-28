@@ -26,9 +26,10 @@ def generate_user_uuid(user_id):
     return str(user_uuid)
 
 
-def register_user(user_id):
-    user_uuid = generate_user_uuid(user_id)
-    redis_client.set(f"{user_id}:uuid", user_uuid)
+def register_user(tg_user_id):
+    user_uuid = generate_user_uuid(tg_user_id)
+    redis_client.set(f"tguser:{tg_user_id}:uuid", user_uuid)
+    redis_client.set(f"user:{user_uuid}:tg_user_id", tg_user_id)
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -42,7 +43,7 @@ def send_welcome(message):
 @bot.message_handler(commands=["manage"])
 def send_manage_link(message):
     user_id = message.json.get("from", {}).get("id")
-    user_uuid = redis_client.get(f"{user_id}:uuid")
+    user_uuid = redis_client.get(f"tg_user:{user_id}:uuid")
 
     if user_uuid:
         bot.reply_to(message, f"{app_base_url}{user_uuid}")

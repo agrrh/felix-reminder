@@ -4,6 +4,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from uuid import UUID
+
 app_version = os.environ.get("APP_API_VERSION", "local")
 
 redis_addr = os.environ.get("APP_REDIS_ADDR", "redis://127.0.0.1:6379/0")
@@ -31,7 +33,7 @@ def read_root():
     return {"version": app_version}
 
 
-@app.get("/users/telegram/{user_id}")
-def read_item(user_id: int):
-    user_uuid = redis_client.get(f"{user_id}:uuid")
-    return {"item_id": user_id, "user_uuid": user_uuid}
+@app.get("/users/{user_uuid}")
+def get_user(user_uuid: UUID):
+    user_id = redis_client.get(f"user:{user_uuid}:tg_user_id")
+    return {"user_id": user_id, "user_uuid": user_uuid}
