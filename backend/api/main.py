@@ -2,12 +2,26 @@ import redis
 import os
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 redis_addr = os.environ.get("APP_REDIS_ADDR", "redis://127.0.0.1:6379/0")
 
 redis_client = redis.Redis.from_url(redis_addr, decode_responses=True)
 
 app = FastAPI()
+
+origins = [
+    "http://127.0.0.1",
+    "http://127.0.0.1:8081",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/status")
