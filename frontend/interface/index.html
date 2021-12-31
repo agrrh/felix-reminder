@@ -33,7 +33,9 @@
             <a class="nav-link" href="https://t.me/{{:app.telegram_bot}}"><i class="fa-solid fa-right-to-bracket"></i></a>
           {{/if}}
         </script>
-        <div id="result-header-user"></div>
+        <div id="result-header-user">
+          <a class="nav-link" href="#"><i class="fa-solid fa-circle-question"></i></a>
+        </div>
       </span>
     </div>
   </nav>
@@ -134,15 +136,14 @@
           <span class="badge bg-dark text-light">back {{:backend.version}}</span>
           <span class="badge bg-dark text-light">front {{:frontend.version}}</span>
         </script>
-        <div id="result-footer-status"></div>
+        <div id="result-footer-status">
+          <a class="text-light" href="#"><i class="fa-solid fa-circle-question"></i></a>
+        </div>
       </div>
 
       <!-- Copyrights -->
       <div class="col-5 offset-1 align-self-start">
-        <script id="tpl-footer-year" type="text/x-jsrender">
-          <i class="fa-regular fa-copyright"></i> {{:year}}
-        </script>
-        <div id="result-footer-year"></div>
+        <i class="fa-regular fa-copyright"></i> <span id="result-footer-year">{{:year}}</span>
       </div>
 
       <!-- References -->

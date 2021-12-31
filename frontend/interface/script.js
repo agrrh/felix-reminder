@@ -43,11 +43,6 @@ function app_init() {
         $.templates("#tpl-footer-status").render(tpl_data)
       );
 
-      var tpl_data = {year: year};
-      $("#result-footer-year").html(
-        $.templates("#tpl-footer-year").render(tpl_data)
-      );
-
       // Draw contents
       app_run();
     })
@@ -59,8 +54,16 @@ function app_init() {
     });
 }
 
+function visuals_init() {
+  document.getElementById("result-footer-year").innerHTML = new Date().getFullYear();
+}
+
 function main() {
+  visuals_init();
+
   app_init();
 }
 
-setTimeout(main, 600);
+// Start
+
+main();
