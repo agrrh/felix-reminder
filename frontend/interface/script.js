@@ -10,11 +10,9 @@ var app = {
 };
 
 function app_run(backend) {
-  user_id = window.location.hash;
+  user_uuid = window.location.hash;
 
-  console.log(user_id);
-
-  jQuery.getJSON(api_base_url + "/users/" + user_id.replace('#', ''))
+  jQuery.getJSON(api_base_url + "/users/" + user_uuid.replace('#', ''))
     .done(function() {
       $('.app-stage-ready').removeClass('visually-hidden');
     })

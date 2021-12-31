@@ -39,7 +39,7 @@ def get_user(user_uuid: UUID):
     user_id = redis_client.get(f"user:{user_uuid}:tg_user_id")
     tg_user_data = json.loads(redis_client.get(f"tg_user:{user_id}:data"))
 
-    result = {"user_id": user_id, "user_uuid": user_uuid}
+    result = {"user_uuid": user_uuid}
 
     if not tg_user_data:
         return result
