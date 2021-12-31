@@ -1,5 +1,6 @@
-import redis
+import json
 import os
+import redis
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -36,4 +37,12 @@ def read_root():
 @app.get("/users/{user_uuid}")
 def get_user(user_uuid: UUID):
     user_id = redis_client.get(f"user:{user_uuid}:tg_user_id")
-    return {"user_id": user_id, "user_uuid": user_uuid}
+    tg_user_data = json.loads(redis_client.get(f"tg_user:{user_id}:data"))
+
+    result = {"user_id": user_id, "user_uuid": user_uuid}
+
+    if not tg_user_data:
+        return result
+
+    result.update(tg_user_data)
+    return result

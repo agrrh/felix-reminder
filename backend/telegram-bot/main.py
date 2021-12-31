@@ -1,3 +1,4 @@
+import json
 import os
 import redis
 import telebot
@@ -20,30 +21,33 @@ bot = telebot.TeleBot(bot_token)
 language = Language("en")
 
 
-def generate_user_uuid(user_id):
-    user_id_salted = f"{uuid_salt}/{user_id}"
+def generate_user_uuid(tg_user_id):
+    user_id_salted = f"{uuid_salt}/{tg_user_id}"
     user_uuid = uuid.uuid3(uuid.NAMESPACE_URL, user_id_salted)
     return str(user_uuid)
 
 
-def register_user(tg_user_id):
+def register_user(tg_user):
+    tg_user_id = tg_user.get("id")
     user_uuid = generate_user_uuid(tg_user_id)
-    redis_client.set(f"tguser:{tg_user_id}:uuid", user_uuid)
+
+    redis_client.set(f"tg_user:{tg_user_id}:uuid", user_uuid)
+    redis_client.set(f"tg_user:{tg_user_id}:data", json.dumps(tg_user))
     redis_client.set(f"user:{user_uuid}:tg_user_id", tg_user_id)
 
 
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
-    user_id = message.json.get("from", {}).get("id")
-    register_user(user_id)
+    tg_user = message.json.get("from", {})
+    register_user(tg_user)
 
     bot.reply_to(message, language.data.get("reply_help", "undefined"))
 
 
 @bot.message_handler(commands=["manage"])
 def send_manage_link(message):
-    user_id = message.json.get("from", {}).get("id")
-    user_uuid = redis_client.get(f"tg_user:{user_id}:uuid")
+    tg_user_id = message.json.get("from", {}).get("id")
+    user_uuid = redis_client.get(f"tg_user:{tg_user_id}:uuid")
 
     if user_uuid:
         bot.reply_to(message, f"{app_base_url}{user_uuid}")
