@@ -3,6 +3,8 @@
 version: "3.9"
 
 services:
+  # Backend
+
   api:
     env_file: .env
     build:
@@ -19,6 +21,15 @@ services:
     image: redis:6.2
     volumes:
       - redis_data:/data
+
+  # Frontend
+
+  nginx:
+    image: nginx:1.21
+    volumes:
+      - ./frontend/interface:/usr/share/nginx/html
+    ports:
+      - "8081:80"
 
 volumes:
   redis_data:
