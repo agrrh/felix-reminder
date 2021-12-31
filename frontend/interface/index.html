@@ -132,9 +132,9 @@
       <!-- Status -->
       <div class="col-4 align-self-start">
         <script id="tpl-footer-status" type="text/x-jsrender">
-          <a class="text-light" href="{{:app.github_url}}"><i class="fa-brands fa-github"></i></a>
-          <span class="badge bg-dark text-light">back {{:backend.version}}</span>
-          <span class="badge bg-dark text-light">front {{:frontend.version}}</span>
+          <a class="text-light" href="{{:app.github_url}}"><span class="badge bg-dark text-light"><i class="fa-brands fa-github"></i> {{:app.github_repo}}</span></a>
+          <span class="badge bg-dark text-light"><i class="fa-solid fa-image"></i> {{:frontend.version}}</span>
+          <span class="badge bg-dark text-light"><i class="fa-solid fa-screwdriver-wrench"></i> {{:backend.version}}</span>
         </script>
         <div id="result-footer-status">
           <a class="text-light" href="#"><i class="fa-solid fa-circle-question"></i></a>
@@ -149,7 +149,7 @@
       <!-- References -->
       <div class="col-2 align-self-start">
         <a class="text-light" href="https://getbootstrap.com/"><i class="fa-brands fa-bootstrap"></i></a>
-        <a class="text-light" href="https://vuejs.org/"><i class="fa-brands fa-vuejs"></i></a>
+        <a class="text-light" href="https://jquery.com/"><i class="fa-brands fa-js"></i></a>
       </div>
     </div>
   </nav>

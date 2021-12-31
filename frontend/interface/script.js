@@ -6,7 +6,8 @@ var year = 2021;
 var app = {
   telegram_bot: "felix_kisovsky_test_bot",
   telegram_bot_name: "Felix TEST",
-  github_url: "https://github.com/agrrh/felix-reminder"
+  github_url: "https://github.com/agrrh/felix-reminder",
+  github_repo: "agrrh/felix-reminder"
 };
 
 function app_run(backend) {
